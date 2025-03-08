@@ -1,77 +1,66 @@
 // Array para almacenar los nombres de los amigos
 let amigos = [];
 
+//FUNCION 1 -- Agregar amigos al array
+function agregarAmigo() {
+    const nombre = document.getElementById("amigo").value.trim();
+    
+    if (nombre === "") {
+        alert("ERROR! EL CAMPO AMIGO NO PUEDE ESTAR VACIO");
+        return;
+    }
+    if (amigos.includes(nombre)) {
+        alert("ERROR! EL NOMBRE YA ESTA EN LA LISTA");
+        document.getElementById("amigo").value = "";
+        return;
+    }
+
+    amigos.push(nombre);
+    console.log("Amigo agregado:", nombre);
+    document.getElementById("amigo").value = "";
+    console.log(amigos);
+    actualizarLista();
+    return;
+}
+//FUNCION 2 -- Actualizar la lista Y muestra competidores por pantalla
 function actualizarLista() {
     console.log("Actualizando lista con:", amigos); // Debugging
 
     const lista = document.getElementById("listaAmigos");
-    if (!lista) {
-        console.error("No se encontró el elemento #listaAmigos");
-        return;
-    }
-
-    lista.innerHTML = ""; // Limpiar la lista antes de actualizar
+    lista.innerHTML = ""; // Limpia la lista antes de actualizar
 
     amigos.forEach((amigo, index) => {
         const li = document.createElement("li");
         li.textContent = amigo;
         li.classList.add("name-list-item");
 
-        // Agregar evento para eliminar amigo al hacer clic
-        li.addEventListener("click", () => {
-            amigos.splice(index, 1);
-            actualizarLista();
-        });
-
-        lista.appendChild(li); // Agregar el elemento a la lista
+        // Agregar el elemento <li> a la lista <ul>
+        lista.appendChild(li);
+        console.log("Amigo agregado:", amigo);
+        li.textContent = `Competidor Nro. ${index + 1}: ${amigo}`;
     });
 }
 
-function agregarAmigo() {
-    const input = document.getElementById("amigo");
-    if (!input) {
-        console.error("No se encontró el input #amigo");
-        return;
-    }
-
-    const nombre = input.value.trim();
-    
-    if (nombre === "") {
-        alert("Debes ingresar un nombre.");
-        return;
-    }
-    if (amigos.includes(nombre)) {
-        alert("Ese nombre ya está en la lista.");
-        return;
-    }
-
-    amigos.push(nombre); // Agregar el nombre al array
-    console.log("Amigo agregado:", nombre); // Debugging
-    input.value = ""; // Limpiar el input
-    actualizarLista(); // Actualizar la lista en la página
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM completamente cargado");
-    actualizarLista();
-});
-
-
-// Función para sortear el amigo secreto
-function sortearAmigo() {
+// FUNCION 3 -- Funcion para sortear el amigo secreto
+// FUNCION 3 -- Funcion para sortear el amigo secreto
+function sorteo() {
     if (amigos.length < 2) {
-        alert("Debes agregar al menos 2 amigos para el sorteo.");
+        alert("ERROR! DEBES AGREGAR AL MENOS DOS NOMBRES");
         return;
     }
 
-    let amigosMezclados = [...amigos].sort(() => Math.random() - 0.5);
-    let resultado = document.getElementById("resultado");
-    resultado.innerHTML = "";
+    // Seleccionar un amigo al azar
+    const indexAmigoAleatorio = Math.floor(Math.random() * amigos.length);
+    console.log("Index seleccionado al azar:", indexAmigoAleatorio); // Para verificar que se seleccionó correctamente
+    console.log("Amigo seleccionado al azar:", amigos[indexAmigoAleatorio]); // Para verificar que se seleccionó correctamente
 
-    for (let i = 0; i < amigosMezclados.length; i++) {
-        const siguiente = (i + 1) % amigosMezclados.length;
-        const li = document.createElement("li");
-        li.textContent = `${amigosMezclados[i]} → ${amigosMezclados[siguiente]}`;
-        resultado.appendChild(li);
-    }
+    let resultado = document.getElementById("resultado");
+
+    resultado.innerHTML = ""; // Limpiar los resultados anteriores
+
+    // Mostrar el amigo seleccionado
+    const li = document.createElement("li");
+    li.textContent = `El amigo secreto es: ${amigos[indexAmigoAleatorio]} 🎉🎉🎉 competidor ${indexAmigoAleatorio+1}`;
+    resultado.appendChild(li);
 }
+
