@@ -62,5 +62,15 @@ function sorteo() {
     const li = document.createElement("li");
     li.textContent = `El amigo secreto es: ${amigos[indexAmigoAleatorio]} 🎉🎉🎉 competidor ${indexAmigoAleatorio+1}`;
     resultado.appendChild(li);
+    document.getElementById("sortear").setAttribute("disabled" , true);
+    document.getElementById("reset").removeAttribute("disabled");
 }
 
+function volverAJugar() {
+    amigos = [];
+    console.log(amigos);
+    document.getElementById("listaAmigos").innerHTML = "";
+    document.getElementById("resultado").innerHTML = "";
+    document.getElementById("sortear").removeAttribute("disabled");
+    document.getElementById("reset").setAttribute("disabled", true);
+}

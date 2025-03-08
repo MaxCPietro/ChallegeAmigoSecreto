@@ -88,8 +88,12 @@ body {
 }
 
 .button-container {
-    width: 300px;
-    justify-content: center;
+    display: flex; /* Usamos flexbox para alinear los botones */
+    justify-content: space-between; /* Esto asegurará que los botones se alineen con espacio entre ellos */
+    gap: 20px; /* Añadimos espacio entre los botones */
+    margin-top: 20px; /* Espacio arriba de los botones */
+    width: 100%; /* El contenedor ocupa el 100% del ancho disponible */
+    max-width: 600px; /* Limita el ancho para que no se estiren demasiado */
 }
 
 /* Estilos de entrada de texto */
@@ -113,8 +117,10 @@ button {
     border-radius: 25px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     cursor: pointer;
+    flex-grow: 1; /* Asegura que los botones ocupen el mismo espacio */
 }
 
+/* Botón de añadir */
 .button-add {
     background-color: var(--color-tertiary);
     color: var(--color-text);
@@ -144,7 +150,6 @@ ul {
 
 /* Botón de sortear título */
 .button-draw {
-    display: flex;
     align-items: center;
     width: 100%;
     padding: 10px 40px;
@@ -159,4 +164,9 @@ ul {
 
 .button-draw:hover {
     background-color: var(--color-button-hover);
+}
+
+button:disabled {
+    background-color: #ccc; /* Gris claro cuando está deshabilitado */
+    cursor: not-allowed; /* Cambia el cursor cuando está deshabilitado */
 }
